@@ -1,0 +1,10 @@
+dbt_gold:
+  outputs:
+    dev:
+      type: databricks
+      catalog: openbrew           
+      schema: brew
+      host: dbc-47376853-8ea1.cloud.databricks.com
+      http_path: /sql/1.0/warehouses/b41b2c5288f9f57c
+      token: DBT_DATABRICKS_TOKEN
+  target: dev

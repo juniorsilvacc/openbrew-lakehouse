@@ -1,0 +1,7 @@
+dbt_gold/profiles.yml
+dbt_gold/package-lock.yml
+dbt_gold/.user.yml
+
+dbt_gold/dbt_packages/
+dbt_gold/logs/
+dbt_gold/target/

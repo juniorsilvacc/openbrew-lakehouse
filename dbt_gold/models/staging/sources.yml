@@ -1,0 +1,45 @@
+version: 2
+
+sources:
+  - name: openbrew_silver
+    catalog: openbrew
+    schema: brew_silver
+    tables:
+      - name: breweries
+        description: "Tabela de cervejarias limpa e padronizada via PySpark."
+        columns:
+          - name: brewery_id
+            tests:
+              - unique
+              - not_null
+          
+          - name: brewery_name
+            tests:
+              - not_null
+              - dbt_utils.at_least_one
+
+          - name: brewery_type
+            tests:
+              - accepted_values:
+                  arguments:
+                    values: ['micro', 'nano', 'regional', 'brewpub', 'large', 'planning', 'bar', 'contract', 'proprietor', 'closed', 'unknown', 'taproom', 'cidery', 'beergarden', 'location']
+
+          - name: website_url
+            tests:
+              - dbt_utils.expression_is_true:
+                  arguments:
+                    expression: "LIKE 'http%' OR website_url IS NULL"
+
+          - name: latitude
+            tests:
+              - dbt_utils.accepted_range:
+                  arguments:
+                    min_value: -90
+                    max_value: 90
+
+          - name: longitude
+            tests:
+              - dbt_utils.accepted_range:
+                  arguments:
+                    min_value: -180
+                    max_value: 180
