@@ -1,6 +1,4 @@
-WITH brew AS (
-    SELECT * FROM {{ ref('stg_brew') }}
-)
+-- Modelo que conta cervejarias de cada tipo existem por estado
 
 SELECT
     state,
@@ -8,7 +6,7 @@ SELECT
     count(distinct brewery_id) as total_breweries,
     count(distinct city) as total_cities_covered,
     current_timestamp() as logic_processed_at
-FROM brew
+FROM  {{ ref('stg_brew') }}
 WHERE state IS NOT NULL
 GROUP BY 
     state, 
